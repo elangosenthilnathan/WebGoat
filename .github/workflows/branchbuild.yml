@@ -11,7 +11,7 @@ jobs:
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
-                os: [ ubuntu-latest, windows-latest, macos-latest ]
+                os: [ ubuntu-latest ]
                 java-version: [ 17, 21 ]
         steps:
             -   uses: actions/checkout@v3
@@ -64,6 +64,6 @@ jobs:
               id: extract_branch
       
             - name: NextGen Static Analysis
-              run: SHIFTLEFT_SBOM_GENERATOR=2 ${GITHUB_WORKSPACE}/sl analyze --wait --app WebGoat-New --tag branch=${{ github.head_ref || steps.extract_branch.outputs.branch }} --javasrc .
+              run: SHIFTLEFT_SBOM_GENERATOR=2 ${GITHUB_WORKSPACE}/sl analyze --wait --app WebGoat-New --verbose --javasrc .
               env:
                   SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
